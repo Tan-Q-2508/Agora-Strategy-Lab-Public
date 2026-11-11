@@ -1,0 +1,31 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-21T06:00:00Z"},
+  "title": "Agora design directions",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 900, "title": "Pick a look", "expand": "fill"},
+    "A-Tokens.dc.html": {"x": 0, "y": 1300, "w": 1440, "h": 1100, "title": "A · Warm Studio: tokens"},
+    "A-Home.dc.html": {"x": 1520, "y": 1300, "w": 1440, "h": 960, "title": "A · Home", "expand": "fill"},
+    "A-Builder.dc.html": {"x": 3040, "y": 1300, "w": 1440, "h": 960, "title": "A · Strategy builder", "expand": "fill"},
+    "A-Results.dc.html": {"x": 4560, "y": 1300, "w": 1440, "h": 1180, "title": "A · Backtest results", "expand": "fill"},
+    "A-Live.dc.html": {"x": 6080, "y": 1300, "w": 1440, "h": 960, "title": "A · Paper trading live (dark mode)", "expand": "fill"},
+    "B-Tokens.dc.html": {"x": 0, "y": 2860, "w": 1440, "h": 1100, "title": "B · Graphite: tokens"},
+    "B-Results.dc.html": {"x": 1520, "y": 2860, "w": 1440, "h": 1180, "title": "B · Backtest results", "expand": "fill"},
+    "C-Tokens.dc.html": {"x": 0, "y": 4420, "w": 1440, "h": 1100, "title": "C · Terracotta Editorial: tokens"},
+    "C-Results.dc.html": {"x": 1520, "y": 4420, "w": 1440, "h": 1180, "title": "C · Backtest results", "expand": "fill"}
+  },
+  "order": [
+    "Main.dc.html",
+    "A-Tokens.dc.html", "A-Home.dc.html", "A-Builder.dc.html", "A-Results.dc.html", "A-Live.dc.html",
+    "B-Tokens.dc.html", "B-Results.dc.html",
+    "C-Tokens.dc.html", "C-Results.dc.html"
+  ],
+  "notes": {
+    "rowA": {"x": 0, "y": 1040, "text": "Direction A · Warm Studio (recommended): all four key screens", "kind": "title1", "maxW": 7520},
+    "rowB": {"x": 0, "y": 2600, "text": "Direction B · Graphite: crisp, cooler and denser", "kind": "title1", "maxW": 2960},
+    "rowC": {"x": 0, "y": 4160, "text": "Direction C · Terracotta Editorial: warm, roomy, serif headings", "kind": "title1", "maxW": 2960}
+  },
+  "designSystems": []
+}

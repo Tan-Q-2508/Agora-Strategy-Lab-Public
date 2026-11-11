@@ -1,0 +1,420 @@
+{
+ "columns": [
+  "ts",
+  "open",
+  "high",
+  "low",
+  "close",
+  "volume",
+  "split_factor"
+ ],
+ "corporate_actions": {
+  "AAPL": [
+   {
+    "amount": 0.23,
+    "ex_date": 1659706200000,
+    "kind": "dividend",
+    "ratio": null
+   },
+   {
+    "amount": 0.24,
+    "ex_date": 1691760600000,
+    "kind": "dividend",
+    "ratio": null
+   }
+  ],
+  "ITC": [
+   {
+    "amount": 6.0,
+    "ex_date": 1685418300000,
+    "kind": "dividend",
+    "ratio": null
+   },
+   {
+    "amount": 6.25,
+    "ex_date": 1717472700000,
+    "kind": "dividend",
+    "ratio": null
+   }
+  ],
+  "NVDA": [
+   {
+    "amount": null,
+    "ex_date": 1626787800000,
+    "kind": "split",
+    "ratio": 4.0
+   }
+  ],
+  "RELIANCE": [
+   {
+    "amount": null,
+    "ex_date": 1590983100000,
+    "kind": "split",
+    "ratio": 2.0
+   }
+  ]
+ },
+ "early_closes": {
+  "IN": {},
+  "US": {
+   "2016-11-25": "13:00",
+   "2017-11-24": "13:00",
+   "2018-11-23": "13:00",
+   "2018-12-24": "13:00",
+   "2019-11-29": "13:00",
+   "2019-12-24": "13:00",
+   "2020-11-27": "13:00",
+   "2020-12-24": "13:00",
+   "2021-11-26": "13:00",
+   "2021-12-24": "13:00",
+   "2022-11-25": "13:00",
+   "2023-11-24": "13:00",
+   "2024-11-29": "13:00",
+   "2024-12-24": "13:00",
+   "2025-11-28": "13:00",
+   "2025-12-24": "13:00"
+  }
+ },
+ "events": [
+  {
+   "dates": [
+    "2022-03-14",
+    "2022-03-15",
+    "2022-03-16"
+   ],
+   "kind": "data_gap",
+   "note": "These sessions are missing from the file on purpose.",
+   "symbol": "TCS",
+   "timeframe": "1d",
+   "ts": [
+    1647229500000,
+    1647315900000,
+    1647402300000
+   ]
+  },
+  {
+   "date": "2020-06-01",
+   "kind": "split",
+   "ratio": 2.0,
+   "symbol": "RELIANCE",
+   "ts": 1590983100000
+  },
+  {
+   "date": "2021-07-20",
+   "kind": "split",
+   "ratio": 4.0,
+   "symbol": "NVDA",
+   "ts": 1626787800000
+  },
+  {
+   "amount": 6.0,
+   "date": "2023-05-30",
+   "kind": "dividend",
+   "symbol": "ITC",
+   "ts": 1685418300000
+  },
+  {
+   "amount": 6.25,
+   "date": "2024-06-04",
+   "kind": "dividend",
+   "symbol": "ITC",
+   "ts": 1717472700000
+  },
+  {
+   "amount": 0.23,
+   "date": "2022-08-05",
+   "kind": "dividend",
+   "symbol": "AAPL",
+   "ts": 1659706200000
+  },
+  {
+   "amount": 0.24,
+   "date": "2023-08-11",
+   "kind": "dividend",
+   "symbol": "AAPL",
+   "ts": 1691760600000
+  },
+  {
+   "date": "2023-04-17",
+   "kind": "price_gap",
+   "size": -0.08,
+   "symbol": "INFY",
+   "ts": 1681703100000
+  },
+  {
+   "date": "2021-05-04",
+   "kind": "circuit_locked",
+   "size": 0.05,
+   "symbol": "SBIN",
+   "ts": 1620099900000
+  }
+ ],
+ "generator": "backend/fakes/synthetic.py",
+ "holidays": {
+  "IN": [
+   "2016-01-26",
+   "2016-08-15",
+   "2017-01-26",
+   "2017-08-15",
+   "2017-10-02",
+   "2017-12-25",
+   "2018-01-26",
+   "2018-08-15",
+   "2018-10-02",
+   "2018-12-25",
+   "2019-08-15",
+   "2019-10-02",
+   "2019-12-25",
+   "2020-10-02",
+   "2020-12-25",
+   "2021-01-26",
+   "2022-01-26",
+   "2022-08-15",
+   "2023-01-26",
+   "2023-08-15",
+   "2023-10-02",
+   "2023-12-25",
+   "2024-01-26",
+   "2024-08-15",
+   "2024-10-02",
+   "2024-12-25",
+   "2025-08-15",
+   "2025-10-02",
+   "2025-12-25"
+  ],
+  "US": [
+   "2016-01-01",
+   "2016-07-04",
+   "2016-11-24",
+   "2017-07-04",
+   "2017-11-23",
+   "2017-12-25",
+   "2018-01-01",
+   "2018-07-04",
+   "2018-11-22",
+   "2018-12-25",
+   "2019-01-01",
+   "2019-07-04",
+   "2019-11-28",
+   "2019-12-25",
+   "2020-01-01",
+   "2020-11-26",
+   "2020-12-25",
+   "2021-01-01",
+   "2021-11-25",
+   "2022-07-04",
+   "2022-11-24",
+   "2023-07-04",
+   "2023-11-23",
+   "2023-12-25",
+   "2024-01-01",
+   "2024-07-04",
+   "2024-11-28",
+   "2024-12-25",
+   "2025-01-01",
+   "2025-07-04",
+   "2025-11-27",
+   "2025-12-25"
+  ]
+ },
+ "note": "Synthetic data for tests only. Not real prices.",
+ "range": [
+  "2016-01-01",
+  "2025-12-31"
+ ],
+ "seed": 20261020,
+ "sessions": {
+  "IN": {
+   "close": "15:30",
+   "open": "09:15",
+   "timezone": "Asia/Kolkata"
+  },
+  "US": {
+   "close": "16:00",
+   "open": "09:30",
+   "timezone": "America/New_York"
+  }
+ },
+ "symbols": {
+  "AAPL": {
+   "market": "US",
+   "timeframes": [
+    "1d",
+    "1h",
+    "5m",
+    "1m"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "AAPL"
+  },
+  "AMZN": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "AMZN"
+  },
+  "BHARTIARTL": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "BHARTIARTL.NS"
+  },
+  "GOOGL": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "GOOGL"
+  },
+  "HDFCBANK": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "HDFCBANK.NS"
+  },
+  "ICICIBANK": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "ICICIBANK.NS"
+  },
+  "INFY": {
+   "market": "IN",
+   "timeframes": [
+    "1d",
+    "1h",
+    "5m",
+    "1m"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "INFY.NS"
+  },
+  "ITC": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "ITC.NS"
+  },
+  "JPM": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "JPM"
+  },
+  "LT": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "LT.NS"
+  },
+  "MARUTI": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "MARUTI.NS"
+  },
+  "META": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "META"
+  },
+  "MSFT": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "MSFT"
+  },
+  "NIFTY50": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "index",
+   "yahoo_symbol": "^NSEI"
+  },
+  "NVDA": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "NVDA"
+  },
+  "QQQ": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "etf",
+   "yahoo_symbol": "QQQ"
+  },
+  "RELIANCE": {
+   "market": "IN",
+   "timeframes": [
+    "1d",
+    "1h",
+    "5m",
+    "1m"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "RELIANCE.NS"
+  },
+  "SBIN": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "SBIN.NS"
+  },
+  "SPY": {
+   "market": "US",
+   "timeframes": [
+    "1d",
+    "1h",
+    "5m",
+    "1m"
+   ],
+   "type": "etf",
+   "yahoo_symbol": "SPY"
+  },
+  "TCS": {
+   "market": "IN",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "TCS.NS"
+  },
+  "TSLA": {
+   "market": "US",
+   "timeframes": [
+    "1d"
+   ],
+   "type": "equity",
+   "yahoo_symbol": "TSLA"
+  }
+ }
+}

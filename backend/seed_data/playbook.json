@@ -1,0 +1,4261 @@
+{
+ "note": "Strategies that survived a research sprint (docs/METIS.md §23). Rules and summary numbers only; no market data.",
+ "entries": [
+  {
+   "key": "accumulation_breakout:US:1d",
+   "family": "accumulation_breakout",
+   "name": "Breakout with money flowing in",
+   "why": "A new 20-candle high while Chaikin money flow is positive: price strength backed by closes near the highs on volume, the footprint of accumulation.",
+   "style": "breakout",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "cmf_min": 0.1,
+    "trail": 4.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "cmf_min",
+      "label": "Cmf min",
+      "type": "float",
+      "default": 0.1,
+      "min": 0.05,
+      "max": 0.1,
+      "step": null
+     },
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "int",
+      "default": 4.0,
+      "min": 3.0,
+      "max": 4.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "highest",
+         "params": {
+          "period": 20.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 1,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "cmf",
+         "params": {
+          "period": 20.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "number",
+         "value": "$cmf_min"
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "cmf",
+       "params": {
+        "period": 20.0
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "number",
+       "value": -0.05
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.5,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 955,
+    "net": 404291.55,
+    "win_rate": 0.4513,
+    "profit_factor": 1.716,
+    "avg_return_pct": 1.8595,
+    "charges": 180.47,
+    "stocks": 29,
+    "stocks_up": 24,
+    "avg_bars": 22.8,
+    "sharpe": 0.81,
+    "max_drawdown_pct": 21.54,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 472,
+    "net": 1378376.05,
+    "win_rate": 0.4852,
+    "profit_factor": 2.109,
+    "avg_return_pct": 3.0386,
+    "charges": 651.53,
+    "stocks": 30,
+    "stocks_up": 23,
+    "avg_bars": 21.3,
+    "sharpe": 1.344,
+    "max_drawdown_pct": 15.63,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 71,
+    "net": 19941.36,
+    "win_rate": 0.3662,
+    "profit_factor": 1.561,
+    "avg_return_pct": 2.9335,
+    "charges": 10.85,
+    "stocks": 27,
+    "stocks_up": 13,
+    "avg_bars": 14.7,
+    "sharpe": 0.94,
+    "max_drawdown_pct": 12.13,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 467,
+     "win_rate": 0.5054,
+     "avg_return_pct": 2.7296,
+     "net": 475607.63
+    },
+    "sideways-volatile": {
+     "trades": 139,
+     "win_rate": 0.4604,
+     "avg_return_pct": 1.4113,
+     "net": 123184.87
+    },
+    "up-calm": {
+     "trades": 659,
+     "win_rate": 0.4568,
+     "avg_return_pct": 2.4113,
+     "net": 1102403.3
+    },
+    "up-volatile": {
+     "trades": 162,
+     "win_rate": 0.3642,
+     "avg_return_pct": 0.9269,
+     "net": 81471.79
+    }
+   },
+   "works_in": [
+    "sideways-calm",
+    "up-calm",
+    "sideways-volatile",
+    "up-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "aroon_trend:US:1d",
+   "family": "aroon_trend",
+   "name": "Aroon trend start",
+   "why": "Aroon measures how recently the high and low were made: a fresh run of new highs with no new lows marks the start of a trend.",
+   "style": "trend",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "length": 25,
+    "level": 50
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "length",
+      "label": "Length",
+      "type": "int",
+      "default": 25.0,
+      "min": 14.0,
+      "max": 25.0,
+      "step": null
+     },
+     {
+      "name": "level",
+      "label": "Level",
+      "type": "int",
+      "default": 70.0,
+      "min": 50.0,
+      "max": 70.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "aroon",
+         "params": {
+          "period": "$length"
+         },
+         "output": "oscillator",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "number",
+         "value": "$level"
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 50.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "aroon",
+       "params": {
+        "period": "$length"
+       },
+       "output": "oscillator",
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "number",
+       "value": 0.0
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.5,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": 3.5,
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 1087,
+    "net": 550517.7,
+    "win_rate": 0.4517,
+    "profit_factor": 1.716,
+    "avg_return_pct": 1.9547,
+    "charges": 237.85,
+    "stocks": 29,
+    "stocks_up": 26,
+    "avg_bars": 22.4,
+    "sharpe": 0.795,
+    "max_drawdown_pct": 27.99,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 489,
+    "net": 1800881.08,
+    "win_rate": 0.4744,
+    "profit_factor": 2.063,
+    "avg_return_pct": 2.9717,
+    "charges": 948.95,
+    "stocks": 30,
+    "stocks_up": 25,
+    "avg_bars": 21.5,
+    "sharpe": 1.313,
+    "max_drawdown_pct": 20.38,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 73,
+    "net": 17717.48,
+    "win_rate": 0.3288,
+    "profit_factor": 1.464,
+    "avg_return_pct": 2.6764,
+    "charges": 11.64,
+    "stocks": 28,
+    "stocks_up": 13,
+    "avg_bars": 17.7,
+    "sharpe": 0.879,
+    "max_drawdown_pct": 13.1,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 157,
+     "win_rate": 0.4331,
+     "avg_return_pct": 2.3703,
+     "net": 116568.22
+    },
+    "down-volatile": {
+     "trades": 91,
+     "win_rate": 0.3736,
+     "avg_return_pct": 0.3624,
+     "net": 266841.6
+    },
+    "sideways-calm": {
+     "trades": 453,
+     "win_rate": 0.4834,
+     "avg_return_pct": 2.7455,
+     "net": 537922.42
+    },
+    "sideways-volatile": {
+     "trades": 144,
+     "win_rate": 0.4722,
+     "avg_return_pct": 2.9479,
+     "net": 257965.5
+    },
+    "unknown": {
+     "trades": 25,
+     "win_rate": 0.6,
+     "avg_return_pct": 9.5217,
+     "net": 36634.59
+    },
+    "up-calm": {
+     "trades": 577,
+     "win_rate": 0.4593,
+     "avg_return_pct": 1.8022,
+     "net": 941178.52
+    },
+    "up-volatile": {
+     "trades": 129,
+     "win_rate": 0.4186,
+     "avg_return_pct": 1.7569,
+     "net": 194287.93
+    }
+   },
+   "works_in": [
+    "sideways-volatile",
+    "sideways-calm",
+    "down-calm",
+    "up-calm",
+    "up-volatile",
+    "down-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "breakout_52w:US:1d",
+   "family": "breakout_52w",
+   "name": "New 52-week high",
+   "why": "Investors anchor on the 52-week high and hesitate to buy above it, so news that justifies a breakout is priced in slowly (George and Hwang 2004).",
+   "style": "momentum",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "trail": 4.5
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "float",
+      "default": 3.5,
+      "min": 2.5,
+      "max": 4.5,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "crosses_above",
+      "right": {
+       "kind": "indicator",
+       "name": "high_52w",
+       "params": {},
+       "output": null,
+       "source": null,
+       "offset": 1,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "indicator",
+       "name": "sma",
+       "params": {
+        "period": 50.0
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.5,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 577,
+    "net": 151384.98,
+    "win_rate": 0.3917,
+    "profit_factor": 1.575,
+    "avg_return_pct": 1.7727,
+    "charges": 65.29,
+    "stocks": 29,
+    "stocks_up": 18,
+    "avg_bars": 28.5,
+    "sharpe": 0.579,
+    "max_drawdown_pct": 14.25,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 298,
+    "net": 751152.81,
+    "win_rate": 0.5,
+    "profit_factor": 2.934,
+    "avg_return_pct": 5.0933,
+    "charges": 225.87,
+    "stocks": 30,
+    "stocks_up": 27,
+    "avg_bars": 29.9,
+    "sharpe": 1.526,
+    "max_drawdown_pct": 14.25,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 65,
+    "net": 18880.3,
+    "win_rate": 0.3538,
+    "profit_factor": 1.403,
+    "avg_return_pct": 3.5435,
+    "charges": 9.75,
+    "stocks": 25,
+    "stocks_up": 10,
+    "avg_bars": 18.0,
+    "sharpe": 0.773,
+    "max_drawdown_pct": 20.65,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 123,
+     "win_rate": 0.4878,
+     "avg_return_pct": 4.741,
+     "net": 135563.97
+    },
+    "sideways-volatile": {
+     "trades": 63,
+     "win_rate": 0.3175,
+     "avg_return_pct": 0.3521,
+     "net": 20447.65
+    },
+    "up-calm": {
+     "trades": 531,
+     "win_rate": 0.4275,
+     "avg_return_pct": 2.7483,
+     "net": 503264.58
+    },
+    "up-volatile": {
+     "trades": 158,
+     "win_rate": 0.4304,
+     "avg_return_pct": 3.0128,
+     "net": 243261.58
+    }
+   },
+   "works_in": [
+    "sideways-calm",
+    "up-volatile",
+    "up-calm",
+    "sideways-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "donchian_breakout:US:1d",
+   "family": "donchian_breakout",
+   "name": "Channel breakout (Donchian)",
+   "why": "Time-series momentum: assets that rose keep rising for months because news spreads slowly and investors under-react (Moskowitz, Ooi, Pedersen 2012). Buying a new N-candle high is the simplest way to ride it.",
+   "style": "breakout",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "entry_len": 20,
+    "exit_len": 20,
+    "trail": 3.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "entry_len",
+      "label": "Entry len",
+      "type": "int",
+      "default": 55.0,
+      "min": 20.0,
+      "max": 55.0,
+      "step": null
+     },
+     {
+      "name": "exit_len",
+      "label": "Exit len",
+      "type": "int",
+      "default": 20.0,
+      "min": 10.0,
+      "max": 20.0,
+      "step": null
+     },
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "int",
+      "default": 4.0,
+      "min": 3.0,
+      "max": 4.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "above",
+      "right": {
+       "kind": "indicator",
+       "name": "donchian",
+       "params": {
+        "period": "$entry_len"
+       },
+       "output": "upper",
+       "source": null,
+       "offset": 1,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "indicator",
+       "name": "donchian",
+       "params": {
+        "period": "$exit_len"
+       },
+       "output": "lower",
+       "source": null,
+       "offset": 1,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.5,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 1362,
+    "net": 604054.45,
+    "win_rate": 0.4449,
+    "profit_factor": 1.693,
+    "avg_return_pct": 1.6266,
+    "charges": 279.41,
+    "stocks": 29,
+    "stocks_up": 23,
+    "avg_bars": 20.0,
+    "sharpe": 0.786,
+    "max_drawdown_pct": 36.62,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 597,
+    "net": 1716868.71,
+    "win_rate": 0.4439,
+    "profit_factor": 1.829,
+    "avg_return_pct": 2.2928,
+    "charges": 1132.45,
+    "stocks": 30,
+    "stocks_up": 25,
+    "avg_bars": 19.4,
+    "sharpe": 1.21,
+    "max_drawdown_pct": 25.97,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 108,
+    "net": 21505.92,
+    "win_rate": 0.3611,
+    "profit_factor": 1.383,
+    "avg_return_pct": 2.4291,
+    "charges": 16.36,
+    "stocks": 30,
+    "stocks_up": 13,
+    "avg_bars": 14.0,
+    "sharpe": 0.946,
+    "max_drawdown_pct": 17.54,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 205,
+     "win_rate": 0.4293,
+     "avg_return_pct": 2.4778,
+     "net": 9997.07
+    },
+    "down-volatile": {
+     "trades": 131,
+     "win_rate": 0.3282,
+     "avg_return_pct": -0.1306,
+     "net": 125512.34
+    },
+    "sideways-calm": {
+     "trades": 517,
+     "win_rate": 0.472,
+     "avg_return_pct": 1.6814,
+     "net": 511887.07
+    },
+    "sideways-volatile": {
+     "trades": 179,
+     "win_rate": 0.4581,
+     "avg_return_pct": 2.7245,
+     "net": 283235.63
+    },
+    "unknown": {
+     "trades": 37,
+     "win_rate": 0.5135,
+     "avg_return_pct": 4.9763,
+     "net": 66825.55
+    },
+    "up-calm": {
+     "trades": 687,
+     "win_rate": 0.4527,
+     "avg_return_pct": 1.8544,
+     "net": 927204.91
+    },
+    "up-volatile": {
+     "trades": 203,
+     "win_rate": 0.4138,
+     "avg_return_pct": 1.3715,
+     "net": 396260.59
+    }
+   },
+   "works_in": [
+    "sideways-volatile",
+    "down-calm",
+    "up-calm",
+    "sideways-calm",
+    "up-volatile"
+   ],
+   "avoid_in": [
+    "down-volatile"
+   ]
+  },
+  {
+   "key": "ema_pullback:US:1d",
+   "family": "ema_pullback",
+   "name": "Pullback to the 20 EMA in a stacked trend",
+   "why": "In a strong trend (50 above 200) prices pause at the short average and resume: continuation after a pause, the trader's 'buy the first pullback'.",
+   "style": "trend",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "fast": 10,
+    "trail": 3.5
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "fast",
+      "label": "Fast",
+      "type": "int",
+      "default": 20.0,
+      "min": 10.0,
+      "max": 20.0,
+      "step": null
+     },
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "float",
+      "default": 3.5,
+      "min": 2.5,
+      "max": 3.5,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 50.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "low",
+         "offset": 1,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "below",
+        "right": {
+         "kind": "indicator",
+         "name": "ema",
+         "params": {
+          "period": "$fast"
+         },
+         "output": null,
+         "source": null,
+         "offset": 1,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "indicator",
+         "name": "ema",
+         "params": {
+          "period": "$fast"
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "indicator",
+       "name": "sma",
+       "params": {
+        "period": 50.0
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 2756,
+    "net": 462364.11,
+    "win_rate": 0.4035,
+    "profit_factor": 1.497,
+    "avg_return_pct": 0.7055,
+    "charges": 449.61,
+    "stocks": 29,
+    "stocks_up": 22,
+    "avg_bars": 9.0,
+    "sharpe": 0.787,
+    "max_drawdown_pct": 26.88,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 1234,
+    "net": 1612035.21,
+    "win_rate": 0.4165,
+    "profit_factor": 1.648,
+    "avg_return_pct": 1.2296,
+    "charges": 2232.04,
+    "stocks": 30,
+    "stocks_up": 25,
+    "avg_bars": 9.3,
+    "sharpe": 1.287,
+    "max_drawdown_pct": 23.29,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 230,
+    "net": 22105.54,
+    "win_rate": 0.3261,
+    "profit_factor": 1.278,
+    "avg_return_pct": 1.2601,
+    "charges": 38.9,
+    "stocks": 29,
+    "stocks_up": 10,
+    "avg_bars": 7.2,
+    "sharpe": 0.859,
+    "max_drawdown_pct": 25.29,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 180,
+     "win_rate": 0.4278,
+     "avg_return_pct": -0.0448,
+     "net": 16656.69
+    },
+    "down-volatile": {
+     "trades": 263,
+     "win_rate": 0.4791,
+     "avg_return_pct": -0.1944,
+     "net": -15614.71
+    },
+    "sideways-calm": {
+     "trades": 951,
+     "win_rate": 0.4164,
+     "avg_return_pct": 0.9227,
+     "net": 392858.66
+    },
+    "sideways-volatile": {
+     "trades": 657,
+     "win_rate": 0.4323,
+     "avg_return_pct": 0.6364,
+     "net": 264907.53
+    },
+    "up-calm": {
+     "trades": 1319,
+     "win_rate": 0.3958,
+     "avg_return_pct": 1.479,
+     "net": 1171129.88
+    },
+    "up-volatile": {
+     "trades": 620,
+     "win_rate": 0.3565,
+     "avg_return_pct": 0.4428,
+     "net": 244461.28
+    }
+   },
+   "works_in": [
+    "up-calm",
+    "sideways-calm",
+    "sideways-volatile",
+    "up-volatile"
+   ],
+   "avoid_in": [
+    "down-volatile",
+    "down-calm"
+   ]
+  },
+  {
+   "key": "ichimoku_cloud:US:1d",
+   "family": "ichimoku_cloud",
+   "name": "Above the Ichimoku cloud",
+   "why": "The cloud is a support zone from past mid-prices; a conversion-line cross above the base line while price is above the cloud is a trend continuation signal.",
+   "style": "trend",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "trail": 4.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "int",
+      "default": 4.0,
+      "min": 3.0,
+      "max": 4.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "ichimoku",
+         "params": {
+          "conversion": 9.0,
+          "base": 26.0,
+          "span": 52.0,
+          "shift": 26.0
+         },
+         "output": "span_a",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "ichimoku",
+         "params": {
+          "conversion": 9.0,
+          "base": 26.0,
+          "span": 52.0,
+          "shift": 26.0
+         },
+         "output": "span_b",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "ichimoku",
+         "params": {
+          "conversion": 9.0,
+          "base": 26.0,
+          "span": 52.0,
+          "shift": 26.0
+         },
+         "output": "conversion",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "indicator",
+         "name": "ichimoku",
+         "params": {
+          "conversion": 9.0,
+          "base": 26.0,
+          "span": 52.0,
+          "shift": 26.0
+         },
+         "output": "base",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "indicator",
+       "name": "ichimoku",
+       "params": {
+        "conversion": 9.0,
+        "base": 26.0,
+        "span": 52.0,
+        "shift": 26.0
+       },
+       "output": "base",
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.5,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 1037,
+    "net": 371582.59,
+    "win_rate": 0.4185,
+    "profit_factor": 1.767,
+    "avg_return_pct": 1.6062,
+    "charges": 207.83,
+    "stocks": 29,
+    "stocks_up": 25,
+    "avg_bars": 17.2,
+    "sharpe": 0.842,
+    "max_drawdown_pct": 22.67,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 478,
+    "net": 873799.71,
+    "win_rate": 0.4519,
+    "profit_factor": 2.059,
+    "avg_return_pct": 2.3506,
+    "charges": 549.45,
+    "stocks": 30,
+    "stocks_up": 22,
+    "avg_bars": 17.1,
+    "sharpe": 1.286,
+    "max_drawdown_pct": 13.57,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 68,
+    "net": 25841.69,
+    "win_rate": 0.3824,
+    "profit_factor": 1.956,
+    "avg_return_pct": 3.9175,
+    "charges": 9.46,
+    "stocks": 26,
+    "stocks_up": 15,
+    "avg_bars": 14.4,
+    "sharpe": 1.362,
+    "max_drawdown_pct": 12.21,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 36,
+     "win_rate": 0.3333,
+     "avg_return_pct": -0.3166,
+     "net": -10225.05
+    },
+    "down-volatile": {
+     "trades": 22,
+     "win_rate": 0.4545,
+     "avg_return_pct": -0.0234,
+     "net": -12780.15
+    },
+    "sideways-calm": {
+     "trades": 392,
+     "win_rate": 0.4847,
+     "avg_return_pct": 3.4971,
+     "net": 564910.93
+    },
+    "sideways-volatile": {
+     "trades": 140,
+     "win_rate": 0.5143,
+     "avg_return_pct": 2.9581,
+     "net": 217012.73
+    },
+    "unknown": {
+     "trades": 12,
+     "win_rate": 0.5,
+     "avg_return_pct": -0.1318,
+     "net": -223.59
+    },
+    "up-calm": {
+     "trades": 735,
+     "win_rate": 0.4027,
+     "avg_return_pct": 1.1941,
+     "net": 395827.23
+    },
+    "up-volatile": {
+     "trades": 178,
+     "win_rate": 0.3596,
+     "avg_return_pct": 0.7865,
+     "net": 90860.2
+    }
+   },
+   "works_in": [
+    "sideways-calm",
+    "sideways-volatile",
+    "up-calm",
+    "up-volatile"
+   ],
+   "avoid_in": [
+    "down-calm",
+    "down-volatile"
+   ]
+  },
+  {
+   "key": "keltner_volume_breakout:US:1d",
+   "family": "keltner_volume_breakout",
+   "name": "Keltner breakout on heavy volume",
+   "why": "A close above the Keltner band on twice the usual volume says big buyers are in (institutions split orders over days, so their buying keeps coming).",
+   "style": "breakout",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "rvol": 1.5,
+    "mult": 2.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "rvol",
+      "label": "Rvol",
+      "type": "float",
+      "default": 2.0,
+      "min": 1.5,
+      "max": 2.0,
+      "step": null
+     },
+     {
+      "name": "mult",
+      "label": "Mult",
+      "type": "float",
+      "default": 2.0,
+      "min": 1.5,
+      "max": 2.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "indicator",
+         "name": "keltner",
+         "params": {
+          "period": 20.0,
+          "mult": "$mult",
+          "atr_period": 10.0
+         },
+         "output": "upper",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "rvol",
+         "params": {
+          "period": 20.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "at_least",
+        "right": {
+         "kind": "number",
+         "value": "$rvol"
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "indicator",
+       "name": "keltner",
+       "params": {
+        "period": 20.0,
+        "mult": "$mult",
+        "atr_period": 10.0
+       },
+       "output": "middle",
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": 3.0,
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 900,
+    "net": 170529.09,
+    "win_rate": 0.3967,
+    "profit_factor": 1.461,
+    "avg_return_pct": 1.224,
+    "charges": 90.23,
+    "stocks": 29,
+    "stocks_up": 22,
+    "avg_bars": 14.5,
+    "sharpe": 0.617,
+    "max_drawdown_pct": 23.75,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 434,
+    "net": 400023.62,
+    "win_rate": 0.4724,
+    "profit_factor": 2.006,
+    "avg_return_pct": 2.2319,
+    "charges": 271.35,
+    "stocks": 30,
+    "stocks_up": 22,
+    "avg_bars": 14.1,
+    "sharpe": 1.258,
+    "max_drawdown_pct": 8.96,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 49,
+    "net": 366.28,
+    "win_rate": 0.3469,
+    "profit_factor": 1.016,
+    "avg_return_pct": 0.3934,
+    "charges": 6.75,
+    "stocks": 25,
+    "stocks_up": 9,
+    "avg_bars": 9.9,
+    "sharpe": 0.091,
+    "max_drawdown_pct": 11.74,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 93,
+     "win_rate": 0.3978,
+     "avg_return_pct": 1.6187,
+     "net": 26907.66
+    },
+    "down-volatile": {
+     "trades": 43,
+     "win_rate": 0.3256,
+     "avg_return_pct": 1.8843,
+     "net": 85679.44
+    },
+    "sideways-calm": {
+     "trades": 339,
+     "win_rate": 0.4366,
+     "avg_return_pct": 1.9921,
+     "net": 154417.57
+    },
+    "sideways-volatile": {
+     "trades": 122,
+     "win_rate": 0.4344,
+     "avg_return_pct": 0.7843,
+     "net": 5721.6
+    },
+    "unknown": {
+     "trades": 26,
+     "win_rate": 0.5,
+     "avg_return_pct": 9.8524,
+     "net": 43700.96
+    },
+    "up-calm": {
+     "trades": 564,
+     "win_rate": 0.4238,
+     "avg_return_pct": 1.298,
+     "net": 198425.86
+    },
+    "up-volatile": {
+     "trades": 147,
+     "win_rate": 0.3946,
+     "avg_return_pct": 0.5403,
+     "net": 55699.62
+    }
+   },
+   "works_in": [
+    "sideways-calm",
+    "down-volatile",
+    "down-calm",
+    "up-calm",
+    "sideways-volatile",
+    "up-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "macd_trend:US:1d",
+   "family": "macd_trend",
+   "name": "MACD turn up above zero",
+   "why": "A MACD histogram turning positive while MACD is above zero is momentum resuming within an established up-move, not a bottom-pick.",
+   "style": "trend",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "fast": 12,
+    "slow": 26
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "fast",
+      "label": "Fast",
+      "type": "int",
+      "default": 12.0,
+      "min": 8.0,
+      "max": 12.0,
+      "step": null
+     },
+     {
+      "name": "slow",
+      "label": "Slow",
+      "type": "int",
+      "default": 26.0,
+      "min": 21.0,
+      "max": 26.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "macd",
+         "params": {
+          "fast": "$fast",
+          "slow": "$slow",
+          "signal": 9.0
+         },
+         "output": "macd",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "number",
+         "value": 0.0
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "macd",
+         "params": {
+          "fast": "$fast",
+          "slow": "$slow",
+          "signal": 9.0
+         },
+         "output": "histogram",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "number",
+         "value": 0.0
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "macd",
+       "params": {
+        "fast": "$fast",
+        "slow": "$slow",
+        "signal": 9.0
+       },
+       "output": "histogram",
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "crosses_below",
+      "right": {
+       "kind": "number",
+       "value": 0.0
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.5,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": 3.5,
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 1587,
+    "net": 61561.95,
+    "win_rate": 0.3806,
+    "profit_factor": 1.204,
+    "avg_return_pct": 0.3339,
+    "charges": 108.99,
+    "stocks": 29,
+    "stocks_up": 18,
+    "avg_bars": 8.5,
+    "sharpe": 0.355,
+    "max_drawdown_pct": 22.12,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 809,
+    "net": 249804.15,
+    "win_rate": 0.4549,
+    "profit_factor": 1.774,
+    "avg_return_pct": 1.2105,
+    "charges": 308.13,
+    "stocks": 30,
+    "stocks_up": 24,
+    "avg_bars": 8.8,
+    "sharpe": 1.279,
+    "max_drawdown_pct": 9.88,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 109,
+    "net": 4418.52,
+    "win_rate": 0.3211,
+    "profit_factor": 1.111,
+    "avg_return_pct": 0.5135,
+    "charges": 14.73,
+    "stocks": 27,
+    "stocks_up": 9,
+    "avg_bars": 8.1,
+    "sharpe": 0.327,
+    "max_drawdown_pct": 14.36,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 299,
+     "win_rate": 0.4047,
+     "avg_return_pct": 0.71,
+     "net": 38335.38
+    },
+    "sideways-volatile": {
+     "trades": 79,
+     "win_rate": 0.4937,
+     "avg_return_pct": 0.5825,
+     "net": 8551.39
+    },
+    "up-calm": {
+     "trades": 1696,
+     "win_rate": 0.4051,
+     "avg_return_pct": 0.6745,
+     "net": 243662.51
+    },
+    "up-volatile": {
+     "trades": 322,
+     "win_rate": 0.3882,
+     "avg_return_pct": 0.3325,
+     "net": 20816.83
+    }
+   },
+   "works_in": [
+    "sideways-calm",
+    "up-calm",
+    "sideways-volatile",
+    "up-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "ranking_low_vol:US:1d",
+   "family": "ranking_low_vol",
+   "name": "Monthly calmest stocks",
+   "why": "The low-volatility anomaly: calm stocks have earned about as much as jumpy ones with far smaller falls, because investors overpay for lottery-like stocks (Baker, Bradley and Wurgler 2011).",
+   "style": "momentum",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {},
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 9.5
+    },
+    "limits": {
+     "max_open_positions": 20,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": null
+    },
+    "parameters": [],
+    "kind": "ranking",
+    "ranking": {
+     "rank_by": "low_volatility",
+     "lookback_months": 12,
+     "skip_months": 0,
+     "hold": 10,
+     "trend_filter": true
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 370,
+    "net": 318695.97,
+    "win_rate": 0.4432,
+    "profit_factor": 2.279,
+    "avg_return_pct": 5.1318,
+    "charges": 47.26,
+    "stocks": 28,
+    "stocks_up": 22,
+    "avg_bars": 103.3,
+    "sharpe": 0.566,
+    "max_drawdown_pct": 42.45,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 136,
+    "net": 947879.61,
+    "win_rate": 0.5735,
+    "profit_factor": 3.657,
+    "avg_return_pct": 10.4152,
+    "charges": 163.71,
+    "stocks": 30,
+    "stocks_up": 23,
+    "avg_bars": 102.4,
+    "sharpe": 1.334,
+    "max_drawdown_pct": 20.02,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 21,
+    "net": 8357.33,
+    "win_rate": 0.381,
+    "profit_factor": 2.166,
+    "avg_return_pct": 4.302,
+    "charges": 3.11,
+    "stocks": 16,
+    "stocks_up": 8,
+    "avg_bars": 67.9,
+    "sharpe": 0.739,
+    "max_drawdown_pct": 11.96,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 2,
+     "win_rate": 0.0,
+     "avg_return_pct": -5.8081,
+     "net": -1229.63
+    },
+    "down-volatile": {
+     "trades": 2,
+     "win_rate": 1.0,
+     "avg_return_pct": 21.1151,
+     "net": 16425.35
+    },
+    "sideways-calm": {
+     "trades": 145,
+     "win_rate": 0.4345,
+     "avg_return_pct": 4.7371,
+     "net": 350400.9
+    },
+    "sideways-volatile": {
+     "trades": 71,
+     "win_rate": 0.4225,
+     "avg_return_pct": 4.8991,
+     "net": 263208.09
+    },
+    "up-calm": {
+     "trades": 221,
+     "win_rate": 0.5158,
+     "avg_return_pct": 8.8971,
+     "net": 549667.01
+    },
+    "up-volatile": {
+     "trades": 65,
+     "win_rate": 0.5077,
+     "avg_return_pct": 4.3635,
+     "net": 88103.87
+    }
+   },
+   "works_in": [
+    "up-calm",
+    "sideways-volatile",
+    "sideways-calm",
+    "up-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "ranking_momentum_6m:US:1d",
+   "family": "ranking_momentum_6m",
+   "name": "Monthly top momentum stocks (six months)",
+   "why": "The same anomaly over six months: reacts faster to new leaders, at the price of more trading and costs.",
+   "style": "momentum",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {},
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 9.5
+    },
+    "limits": {
+     "max_open_positions": 20,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": null
+    },
+    "parameters": [],
+    "kind": "ranking",
+    "ranking": {
+     "rank_by": "momentum",
+     "lookback_months": 6,
+     "skip_months": 1,
+     "hold": 10,
+     "trend_filter": true
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 441,
+    "net": 1650909.37,
+    "win_rate": 0.5533,
+    "profit_factor": 4.008,
+    "avg_return_pct": 9.7111,
+    "charges": 189.76,
+    "stocks": 29,
+    "stocks_up": 25,
+    "avg_bars": 81.8,
+    "sharpe": 0.804,
+    "max_drawdown_pct": 51.28,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 196,
+    "net": 12340463.96,
+    "win_rate": 0.6531,
+    "profit_factor": 3.825,
+    "avg_return_pct": 14.455,
+    "charges": 1829.78,
+    "stocks": 30,
+    "stocks_up": 28,
+    "avg_bars": 73.9,
+    "sharpe": 1.239,
+    "max_drawdown_pct": 35.29,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 13,
+    "net": 49688.04,
+    "win_rate": 0.5385,
+    "profit_factor": 8.941,
+    "avg_return_pct": 36.7049,
+    "charges": 3.53,
+    "stocks": 11,
+    "stocks_up": 6,
+    "avg_bars": 57.8,
+    "sharpe": 1.704,
+    "max_drawdown_pct": 34.03,
+    "days": 250
+   },
+   "regimes": {
+    "down-calm": {
+     "trades": 20,
+     "win_rate": 0.55,
+     "avg_return_pct": 0.2548,
+     "net": -71700.13
+    },
+    "down-volatile": {
+     "trades": 21,
+     "win_rate": 0.6667,
+     "avg_return_pct": -0.8791,
+     "net": 33085.66
+    },
+    "sideways-calm": {
+     "trades": 106,
+     "win_rate": 0.6038,
+     "avg_return_pct": 7.1859,
+     "net": 431574.97
+    },
+    "sideways-volatile": {
+     "trades": 46,
+     "win_rate": 0.6304,
+     "avg_return_pct": 12.941,
+     "net": 911587.44
+    },
+    "unknown": {
+     "trades": 6,
+     "win_rate": 0.5,
+     "avg_return_pct": 20.8535,
+     "net": 53381.14
+    },
+    "up-calm": {
+     "trades": 364,
+     "win_rate": 0.5824,
+     "avg_return_pct": 13.7318,
+     "net": 10985212.42
+    },
+    "up-volatile": {
+     "trades": 74,
+     "win_rate": 0.527,
+     "avg_return_pct": 8.766,
+     "net": 1648231.83
+    }
+   },
+   "works_in": [
+    "up-calm",
+    "sideways-volatile",
+    "up-volatile",
+    "sideways-calm",
+    "down-calm"
+   ],
+   "avoid_in": [
+    "down-volatile"
+   ]
+  },
+  {
+   "key": "roc_momentum:US:1d",
+   "family": "roc_momentum",
+   "name": "Six-month momentum turning up",
+   "why": "Stocks that rose over the past months tend to keep rising (Jegadeesh and Titman 1993; strong in India too). Enter when medium-term momentum turns positive in an uptrend.",
+   "style": "momentum",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "length": 63,
+    "trail": 4.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "length",
+      "label": "Length",
+      "type": "int",
+      "default": 126.0,
+      "min": 63.0,
+      "max": 126.0,
+      "step": null
+     },
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "int",
+      "default": 4.0,
+      "min": 3.0,
+      "max": 4.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "roc",
+         "params": {
+          "period": "$length"
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "number",
+         "value": 0.0
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "roc",
+       "params": {
+        "period": "$length"
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "number",
+       "value": 0.0
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 3.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 1500,
+    "net": 188911.86,
+    "win_rate": 0.41,
+    "profit_factor": 1.538,
+    "avg_return_pct": 0.7702,
+    "charges": 140.3,
+    "stocks": 29,
+    "stocks_up": 25,
+    "avg_bars": 13.0,
+    "sharpe": 0.601,
+    "max_drawdown_pct": 23.83,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 689,
+    "net": 651025.01,
+    "win_rate": 0.4151,
+    "profit_factor": 2.017,
+    "avg_return_pct": 1.8752,
+    "charges": 494.19,
+    "stocks": 30,
+    "stocks_up": 23,
+    "avg_bars": 14.0,
+    "sharpe": 1.26,
+    "max_drawdown_pct": 18.26,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 134,
+    "net": 6869.1,
+    "win_rate": 0.3284,
+    "profit_factor": 1.205,
+    "avg_return_pct": 0.7832,
+    "charges": 17.72,
+    "stocks": 28,
+    "stocks_up": 9,
+    "avg_bars": 6.5,
+    "sharpe": 0.972,
+    "max_drawdown_pct": 11.6,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 1202,
+     "win_rate": 0.4351,
+     "avg_return_pct": 1.1787,
+     "net": 417978.94
+    },
+    "sideways-volatile": {
+     "trades": 490,
+     "win_rate": 0.3796,
+     "avg_return_pct": 0.6621,
+     "net": 106138.4
+    },
+    "up-calm": {
+     "trades": 312,
+     "win_rate": 0.4038,
+     "avg_return_pct": 1.7699,
+     "net": 247044.77
+    },
+    "up-volatile": {
+     "trades": 185,
+     "win_rate": 0.3568,
+     "avg_return_pct": 0.832,
+     "net": 68774.75
+    }
+   },
+   "works_in": [
+    "up-calm",
+    "sideways-calm",
+    "up-volatile",
+    "sideways-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "supertrend_trend:US:1d",
+   "family": "supertrend_trend",
+   "name": "Supertrend flip in a long uptrend",
+   "why": "Supertrend is an ATR trailing line; a flip to up inside a long uptrend is a resumed trend, while flips against the 200-candle average are mostly noise.",
+   "style": "trend",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "length": 14,
+    "mult": 3.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "length",
+      "label": "Length",
+      "type": "int",
+      "default": 14.0,
+      "min": 10.0,
+      "max": 14.0,
+      "step": null
+     },
+     {
+      "name": "mult",
+      "label": "Mult",
+      "type": "int",
+      "default": 3.0,
+      "min": 2.0,
+      "max": 3.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "supertrend",
+         "params": {
+          "period": "$length",
+          "mult": "$mult"
+         },
+         "output": "direction",
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "crosses_above",
+        "right": {
+         "kind": "number",
+         "value": 0.0
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "supertrend",
+       "params": {
+        "period": "$length",
+        "mult": "$mult"
+       },
+       "output": "direction",
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "crosses_below",
+      "right": {
+       "kind": "number",
+       "value": 0.0
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 3.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": null,
+     "scale_out": null,
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 721,
+    "net": 466852.53,
+    "win_rate": 0.4438,
+    "profit_factor": 1.94,
+    "avg_return_pct": 2.8085,
+    "charges": 153.63,
+    "stocks": 29,
+    "stocks_up": 19,
+    "avg_bars": 33.7,
+    "sharpe": 0.799,
+    "max_drawdown_pct": 38.62,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 312,
+    "net": 1068850.89,
+    "win_rate": 0.4679,
+    "profit_factor": 1.972,
+    "avg_return_pct": 3.9213,
+    "charges": 474.11,
+    "stocks": 30,
+    "stocks_up": 23,
+    "avg_bars": 35.2,
+    "sharpe": 1.259,
+    "max_drawdown_pct": 21.48,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 52,
+    "net": 52901.07,
+    "win_rate": 0.3654,
+    "profit_factor": 2.266,
+    "avg_return_pct": 11.723,
+    "charges": 11.38,
+    "stocks": 24,
+    "stocks_up": 12,
+    "avg_bars": 29.2,
+    "sharpe": 1.555,
+    "max_drawdown_pct": 22.37,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 342,
+     "win_rate": 0.4708,
+     "avg_return_pct": 4.0449,
+     "net": 696411.44
+    },
+    "sideways-volatile": {
+     "trades": 200,
+     "win_rate": 0.465,
+     "avg_return_pct": 2.9757,
+     "net": 223217.82
+    },
+    "up-calm": {
+     "trades": 334,
+     "win_rate": 0.4731,
+     "avg_return_pct": 2.7053,
+     "net": 361619.79
+    },
+    "up-volatile": {
+     "trades": 157,
+     "win_rate": 0.3439,
+     "avg_return_pct": 2.3333,
+     "net": 254454.37
+    }
+   },
+   "works_in": [
+    "sideways-calm",
+    "sideways-volatile",
+    "up-calm",
+    "up-volatile"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "trend_dip_connors:US:1d",
+   "family": "trend_dip_connors",
+   "name": "Connors RSI dips in an uptrend",
+   "why": "Connors RSI adds the length of the down streak and how big today's fall is against the last 100 days, so it catches exhausted selling better than plain RSI.",
+   "style": "reversion",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "level": 20
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "level",
+      "label": "Level",
+      "type": "int",
+      "default": 15.0,
+      "min": 5.0,
+      "max": 20.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "connors_rsi",
+         "params": {
+          "rsi": 3.0,
+          "streak": 2.0,
+          "rank": 100.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "below",
+        "right": {
+         "kind": "number",
+         "value": "$level"
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "connors_rsi",
+       "params": {
+        "rsi": 3.0,
+        "streak": 2.0,
+        "rank": 100.0
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "above",
+      "right": {
+       "kind": "number",
+       "value": 70.0
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 3.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": null,
+     "scale_out": null,
+     "max_bars": 10.0,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 3318,
+    "net": 304943.36,
+    "win_rate": 0.6585,
+    "profit_factor": 1.328,
+    "avg_return_pct": 0.4505,
+    "charges": 522.8,
+    "stocks": 29,
+    "stocks_up": 24,
+    "avg_bars": 4.2,
+    "sharpe": 0.806,
+    "max_drawdown_pct": 15.81,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 1618,
+    "net": 1264295.48,
+    "win_rate": 0.6873,
+    "profit_factor": 1.725,
+    "avg_return_pct": 0.9252,
+    "charges": 1988.91,
+    "stocks": 30,
+    "stocks_up": 24,
+    "avg_bars": 4.1,
+    "sharpe": 1.505,
+    "max_drawdown_pct": 13.42,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 282,
+    "net": 33483.52,
+    "win_rate": 0.6596,
+    "profit_factor": 1.503,
+    "avg_return_pct": 1.1643,
+    "charges": 44.8,
+    "stocks": 28,
+    "stocks_up": 17,
+    "avg_bars": 3.9,
+    "sharpe": 1.294,
+    "max_drawdown_pct": 15.63,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 753,
+     "win_rate": 0.6401,
+     "avg_return_pct": 0.1525,
+     "net": 104993.99
+    },
+    "sideways-volatile": {
+     "trades": 483,
+     "win_rate": 0.6729,
+     "avg_return_pct": 0.6131,
+     "net": 160843.5
+    },
+    "up-calm": {
+     "trades": 2501,
+     "win_rate": 0.6733,
+     "avg_return_pct": 0.674,
+     "net": 750550.68
+    },
+    "up-volatile": {
+     "trades": 1199,
+     "win_rate": 0.6722,
+     "avg_return_pct": 0.7465,
+     "net": 552850.67
+    }
+   },
+   "works_in": [
+    "up-volatile",
+    "up-calm",
+    "sideways-volatile",
+    "sideways-calm"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "trend_dip_rsi:US:1d",
+   "family": "trend_dip_rsi",
+   "name": "Short dips in an uptrend (RSI)",
+   "why": "Short-term overreactions reverse: forced and impatient sellers push a stock below fair value for a few days, and the buyer who provides liquidity is paid for it (Lehmann 1990; Connors). Only inside a long uptrend, where the dip is noise, not news.",
+   "style": "reversion",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "rsi_len": 2,
+    "dip": 20
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "rsi_len",
+      "label": "RSI length",
+      "type": "int",
+      "default": 3.0,
+      "min": 2.0,
+      "max": 5.0,
+      "step": null
+     },
+     {
+      "name": "dip",
+      "label": "RSI below",
+      "type": "int",
+      "default": 10.0,
+      "min": 5.0,
+      "max": 20.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "indicator",
+         "name": "rsi",
+         "params": {
+          "period": "$rsi_len"
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "below",
+        "right": {
+         "kind": "number",
+         "value": "$dip"
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "indicator",
+       "name": "rsi",
+       "params": {
+        "period": "$rsi_len"
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "above",
+      "right": {
+       "kind": "number",
+       "value": 70.0
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 3.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": null,
+     "scale_out": null,
+     "max_bars": 10.0,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 4137,
+    "net": 565428.65,
+    "win_rate": 0.6684,
+    "profit_factor": 1.393,
+    "avg_return_pct": 0.4903,
+    "charges": 1018.72,
+    "stocks": 29,
+    "stocks_up": 25,
+    "avg_bars": 4.5,
+    "sharpe": 0.91,
+    "max_drawdown_pct": 19.93,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 2011,
+    "net": 2792822.35,
+    "win_rate": 0.6972,
+    "profit_factor": 1.66,
+    "avg_return_pct": 0.8809,
+    "charges": 4632.98,
+    "stocks": 30,
+    "stocks_up": 30,
+    "avg_bars": 4.3,
+    "sharpe": 1.416,
+    "max_drawdown_pct": 22.11,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 321,
+    "net": 23201.11,
+    "win_rate": 0.6449,
+    "profit_factor": 1.294,
+    "avg_return_pct": 0.7615,
+    "charges": 50.15,
+    "stocks": 29,
+    "stocks_up": 18,
+    "avg_bars": 4.5,
+    "sharpe": 1.074,
+    "max_drawdown_pct": 16.57,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 1091,
+     "win_rate": 0.6792,
+     "avg_return_pct": 0.4105,
+     "net": 330880.32
+    },
+    "sideways-volatile": {
+     "trades": 536,
+     "win_rate": 0.7052,
+     "avg_return_pct": 0.6605,
+     "net": 352802.92
+    },
+    "up-calm": {
+     "trades": 3272,
+     "win_rate": 0.6727,
+     "avg_return_pct": 0.6408,
+     "net": 1639875.28
+    },
+    "up-volatile": {
+     "trades": 1249,
+     "win_rate": 0.6781,
+     "avg_return_pct": 0.7216,
+     "net": 1034692.48
+    }
+   },
+   "works_in": [
+    "up-volatile",
+    "sideways-volatile",
+    "up-calm",
+    "sideways-calm"
+   ],
+   "avoid_in": []
+  },
+  {
+   "key": "trend_partials:US:1d",
+   "family": "trend_partials",
+   "name": "Breakout with partial profits",
+   "why": "Breakouts win big but rarely; selling a third at 1R and 2R banks part of the move and raises the win rate, while the rest rides the trend (scaling out, D-125).",
+   "style": "breakout",
+   "market": "US",
+   "timeframe": "1d",
+   "settings": {
+    "entry_len": 20,
+    "trail": 4.0
+   },
+   "definition": {
+    "schema_version": 1,
+    "market": "US",
+    "universe": {
+     "kind": "symbols",
+     "symbols": [
+      "SPY",
+      "QQQ",
+      "NVDA",
+      "TSLA",
+      "MU",
+      "MSFT",
+      "AAPL",
+      "AMD",
+      "META",
+      "AMZN",
+      "GOOGL",
+      "AVGO",
+      "INTC",
+      "GOOG",
+      "PLTR",
+      "TSM",
+      "ORCL",
+      "GLD",
+      "LITE",
+      "MRVL",
+      "NFLX",
+      "LLY",
+      "MSTR",
+      "WDC",
+      "AMAT",
+      "TLT",
+      "JPM",
+      "LRCX",
+      "WMT",
+      "STX"
+     ]
+    },
+    "timeframe": "1d",
+    "product": "cash",
+    "sizing": {
+     "kind": "percent_equity",
+     "value": 10.0
+    },
+    "limits": {
+     "max_open_positions": 10,
+     "max_per_symbol": 1,
+     "max_daily_loss_pct": null,
+     "max_position_pct": 10.0
+    },
+    "parameters": [
+     {
+      "name": "entry_len",
+      "label": "Entry len",
+      "type": "int",
+      "default": 50.0,
+      "min": 20.0,
+      "max": 50.0,
+      "step": null
+     },
+     {
+      "name": "trail",
+      "label": "Trail",
+      "type": "int",
+      "default": 4.0,
+      "min": 3.0,
+      "max": 4.0,
+      "step": null
+     }
+    ],
+    "kind": "visual",
+    "entry": {
+     "long": {
+      "type": "all",
+      "conditions": [
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "sma",
+         "params": {
+          "period": 200.0
+         },
+         "output": null,
+         "source": null,
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        }
+       },
+       {
+        "type": "compare",
+        "left": {
+         "kind": "price",
+         "field": "close",
+         "offset": 0,
+         "times": 1.0,
+         "chart": null
+        },
+        "op": "above",
+        "right": {
+         "kind": "indicator",
+         "name": "donchian",
+         "params": {
+          "period": "$entry_len"
+         },
+         "output": "upper",
+         "source": null,
+         "offset": 1,
+         "times": 1.0,
+         "chart": null
+        }
+       }
+      ]
+     },
+     "short": null
+    },
+    "exit": {
+     "long": {
+      "type": "compare",
+      "left": {
+       "kind": "price",
+       "field": "close",
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      },
+      "op": "below",
+      "right": {
+       "kind": "indicator",
+       "name": "sma",
+       "params": {
+        "period": 50.0
+       },
+       "output": null,
+       "source": null,
+       "offset": 0,
+       "times": 1.0,
+       "chart": null
+      }
+     },
+     "short": null,
+     "stop_loss": {
+      "kind": "atr",
+      "value": 2.0,
+      "atr_period": 14
+     },
+     "take_profit": null,
+     "trailing_stop": {
+      "kind": "atr",
+      "value": "$trail",
+      "atr_period": 14
+     },
+     "scale_out": {
+      "steps": [
+       {
+        "kind": "r",
+        "value": 1.0,
+        "sell_pct": 33.0
+       },
+       {
+        "kind": "r",
+        "value": 2.0,
+        "sell_pct": 33.0
+       }
+      ],
+      "breakeven": true
+     },
+     "max_bars": null,
+     "exit_time": null
+    }
+   },
+   "tested_on": [
+    "SPY",
+    "QQQ",
+    "NVDA",
+    "TSLA",
+    "MU",
+    "MSFT",
+    "AAPL",
+    "AMD",
+    "META",
+    "AMZN",
+    "GOOGL",
+    "AVGO",
+    "INTC",
+    "GOOG",
+    "PLTR",
+    "TSM",
+    "ORCL",
+    "GLD",
+    "LITE",
+    "MRVL",
+    "NFLX",
+    "LLY",
+    "MSTR",
+    "WDC",
+    "AMAT",
+    "TLT",
+    "JPM",
+    "LRCX",
+    "WMT",
+    "STX"
+   ],
+   "sprint": "2026-11",
+   "study": {
+    "trades": 1282,
+    "net": 386246.83,
+    "win_rate": 0.5367,
+    "profit_factor": 1.767,
+    "avg_return_pct": 1.3247,
+    "charges": 199.15,
+    "stocks": 29,
+    "stocks_up": 25,
+    "avg_bars": 20.5,
+    "sharpe": 0.95,
+    "max_drawdown_pct": 26.15,
+    "days": 4375
+   },
+   "exam": {
+    "trades": 579,
+    "net": 823642.49,
+    "win_rate": 0.4991,
+    "profit_factor": 1.805,
+    "avg_return_pct": 1.8352,
+    "charges": 707.42,
+    "stocks": 30,
+    "stocks_up": 25,
+    "avg_bars": 20.9,
+    "sharpe": 1.379,
+    "max_drawdown_pct": 13.85,
+    "days": 1872,
+    "index_sharpe": 0.726,
+    "hold_sharpe": 1.188
+   },
+   "vault": {
+    "trades": 109,
+    "net": 5675.69,
+    "win_rate": 0.4312,
+    "profit_factor": 1.125,
+    "avg_return_pct": 0.7027,
+    "charges": 14.33,
+    "stocks": 28,
+    "stocks_up": 13,
+    "avg_bars": 13.3,
+    "sharpe": 0.582,
+    "max_drawdown_pct": 13.25,
+    "days": 250
+   },
+   "regimes": {
+    "sideways-calm": {
+     "trades": 642,
+     "win_rate": 0.514,
+     "avg_return_pct": 1.5025,
+     "net": 334017.35
+    },
+    "sideways-volatile": {
+     "trades": 268,
+     "win_rate": 0.4925,
+     "avg_return_pct": 1.2981,
+     "net": 224465.43
+    },
+    "up-calm": {
+     "trades": 727,
+     "win_rate": 0.553,
+     "avg_return_pct": 1.6339,
+     "net": 490299.0
+    },
+    "up-volatile": {
+     "trades": 224,
+     "win_rate": 0.5045,
+     "avg_return_pct": 1.1628,
+     "net": 161107.53
+    }
+   },
+   "works_in": [
+    "up-calm",
+    "sideways-calm",
+    "sideways-volatile",
+    "up-volatile"
+   ],
+   "avoid_in": []
+  }
+ ]
+}

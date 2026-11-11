@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Markets-Example</title><link>https://example.com/markets</link>
+<item><title>Sensex, Nifty end higher as IT stocks gain; Infosys and TCS lead</title><description>Benchmark indices rose on Wednesday, led by Infosys and TCS, while Airtel slipped.</description><link>https://example.com/markets/a1</link><enclosure url="https://example.com/a1.jpg" type="image/jpeg"/><guid>https://example.com/markets/a1</guid><pubDate>Thu, 22 Oct 2026 01:45:59 +0530</pubDate></item>
+<item><title>Titan of industry: a profile</title><description>Not about the jeweller.</description><link>https://example.com/markets/a2</link><guid>https://example.com/markets/a2</guid><pubDate>Thu, 22 Oct 2026 00:10:00 +0530</pubDate></item>
+<item><title></title><link>https://example.com/markets/empty</link></item>
+</channel></rss>

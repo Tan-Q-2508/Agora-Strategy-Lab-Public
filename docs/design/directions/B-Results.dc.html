@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Backtest results, Graphite</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#B8461A}a:hover{color:#8F3713}
+</style>
+</helmet>
+<div style="box-sizing: border-box; min-height: 1180px; background: #F5F5F3; font-family: Geist, system-ui, sans-serif; color: #18181A; display: flex; flex-wrap: wrap">
+
+<nav aria-label="Main" style="flex: 1 1 200px; max-width: 216px; box-sizing: border-box; padding: 14px 10px; border-right: 1px solid #E2E2DE; background: #F5F5F3; display: flex; flex-direction: column; gap: 2px; font-size: 13px">
+<div style="display: flex; align-items: center; gap: 8px; padding: 6px 8px 14px"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#18181A"></rect><path d="M9 23 16 8l7 15M11.8 17.5h8.4" fill="none" stroke="#F26B33" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size: 15px; font-weight: 600; letter-spacing: -0.02em">Agora</span></div>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Home</a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Strategies</a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; background: #EDEDEA; color: #18181A; font-weight: 500; text-decoration: none">Backtests</a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Compare</a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Paper trading<span style="margin-left: auto; font-family: 'Geist Mono', monospace; font-size: 11px; color: #18794E">● 2</span></a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Charts</a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Data</a>
+<a href="#" style="display: flex; align-items: center; min-height: 34px; padding: 0 8px; border-radius: 6px; color: #5C5C63; text-decoration: none">Settings</a>
+</nav>
+
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 24px; border-bottom: 1px solid #E2E2DE; background: #FFFFFF">
+<div style="font-size: 13px; color: #5C5C63">Backtests <span aria-hidden="true">/</span> <b style="font-weight: 500; color: #18181A">RSI bounce v3</b></div>
+<div style="flex: 1"></div>
+<span style="display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 8px; border: 1px solid #E2E2DE; border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63"><span style="color: #8A8A90">●</span> IN closed · 13:40</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 8px; border: 1px solid #BFE3CF; background: #EEF8F2; border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #11603D"><span>●</span> US open · 04:12</span>
+<span style="display: inline-flex; align-items: center; min-height: 28px; padding: 0 8px; border: 1px solid #E2E2DE; border-radius: 6px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63">⌘K</span>
+</header>
+
+<main style="padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.03em">RSI bounce v3</h1>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63">NIFTY50 · 1d · 2020-01-01 → 2025-12-31 · ₹10,00,000 · discount broker</span>
+</div>
+<div style="flex: 1"></div>
+<button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 6px; border: 1px solid #E2E2DE; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 500; color: #18181A">Export</button>
+<button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 6px; border: 1px solid #E2E2DE; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 500; color: #18181A">Compare</button>
+<button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 6px; border: none; background: #18181A; font: inherit; font-size: 13px; font-weight: 500; color: #FFFFFF">Start paper trading</button>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); background: #FFFFFF; border: 1px solid #E2E2DE; border-radius: 10px; overflow: hidden">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-right: 1px solid #E2E2DE"><span style="font-size: 12px; color: #5C5C63">Total return</span><span style="font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.03em; color: #18794E">+42.6%</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #5C5C63">bench +61.0%</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-right: 1px solid #E2E2DE"><span style="font-size: 12px; color: #5C5C63">Yearly return</span><span style="font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.03em">+6.1%</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #5C5C63">bench +8.3%</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-right: 1px solid #E2E2DE"><span style="font-size: 12px; color: #5C5C63">Worst drop</span><span style="font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.03em; color: #C0362C">−27.1%</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #5C5C63">14 mo to recover</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-right: 1px solid #E2E2DE"><span style="font-size: 12px; color: #5C5C63">Sharpe</span><span style="font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.03em">0.58</span><span style="font-size: 11px; color: #5C5C63">below 1: bumpy</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-right: 1px solid #E2E2DE"><span style="font-size: 12px; color: #5C5C63">Win rate</span><span style="font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.03em">57%</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #5C5C63">53 / 93</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px"><span style="font-size: 12px; color: #5C5C63">Charges</span><span style="font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.03em">₹38,920</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #5C5C63">9% of gross</span></div>
+</div>
+
+<p style="margin: 0; padding: 12px 14px; border: 1px solid #E2E2DE; border-radius: 10px; background: #FFFFFF; font-size: 14px; line-height: 1.6; color: #2E2E33"><b style="font-weight: 600; color: #D9541E">Summary</b> · Made 42.6% over 6 years, less than holding the Nifty 50 (61.0%). Worst drop 27.1% during the 2020 crash. Charges took about 9% of the profit.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<section style="flex: 3 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; background: #FFFFFF; border: 1px solid #E2E2DE; border-radius: 10px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 14px; font-weight: 600">Your strategy vs simply holding the Nifty 50</h2><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #5C5C63">— strategy  - - Nifty 50</span></div>
+<svg viewBox="0 0 840 240" width="100%" role="img" aria-label="Equity curve: the strategy ends 1.43 times its start, the Nifty 50 1.61 times">
+<g font-family="Geist Mono, monospace" font-size="10" fill="#8A8A90"><text x="0" y="189">10 L</text><text x="0" y="156">12 L</text><text x="0" y="123">14 L</text><text x="0" y="89">16 L</text></g>
+<g transform="translate(40,0)">
+<g stroke="#EDEDEA" stroke-width="1"><line x1="0" y1="185.8" x2="800" y2="185.8"></line><line x1="0" y1="152.3" x2="800" y2="152.3"></line><line x1="0" y1="118.9" x2="800" y2="118.9"></line><line x1="0" y1="85.5" x2="800" y2="85.5"></line></g>
+<polyline fill="none" stroke="#9A9AA3" stroke-width="1.2" stroke-dasharray="4 4" points="0.0,185.8 6.7,197.9 13.4,207.1 20.2,206.1 26.9,208.4 33.6,215.1 40.3,215.9 47.1,209.3 53.8,206.9 60.5,195.2 67.2,194.3 73.9,192.7 80.7,181.5 87.4,185.0 94.1,178.2 100.8,158.5 107.6,134.3 114.3,148.5 121.0,158.6 127.7,156.7 134.5,163.7 141.2,162.7 147.9,157.7 154.6,158.7 161.3,171.0 168.1,161.0 174.8,138.4 181.5,108.7 188.2,103.3 195.0,75.7 201.7,66.4 208.4,57.7 215.1,40.7 221.8,49.0 228.6,6.9 235.3,26.7 242.0,34.5 248.7,63.6 255.5,62.4 262.2,61.3 268.9,49.0 275.6,16.8 282.4,17.1 289.1,26.3 295.8,26.1 302.5,45.2 309.2,41.1 316.0,52.3 322.7,89.2 329.4,82.5 336.1,88.8 342.9,74.9 349.6,69.1 356.3,64.4 363.0,76.8 369.7,91.1 376.5,90.7 383.2,92.0 389.9,103.2 396.6,107.4 403.4,105.7 410.1,96.4 416.8,86.1 423.5,63.5 430.3,66.4 437.0,28.8 443.7,49.9 450.4,44.0 457.1,57.1 463.9,74.5 470.6,90.1 477.3,88.8 484.0,80.5 490.8,92.1 497.5,83.9 504.2,99.8 510.9,95.5 517.6,108.4 524.4,97.4 531.1,92.5 537.8,111.1 544.5,103.1 551.3,111.6 558.0,111.9 564.7,88.2 571.4,100.6 578.2,82.9 584.9,71.7 591.6,82.8 598.3,73.2 605.0,87.9 611.8,96.9 618.5,94.9 625.2,97.8 631.9,69.1 638.7,85.8 645.4,83.2 652.1,54.8 658.8,39.4 665.5,56.4 672.3,64.5 679.0,59.7 685.7,57.3 692.4,44.9 699.2,30.0 705.9,18.3 712.6,23.3 719.3,38.8 726.1,22.5 732.8,45.8 739.5,38.0 746.2,71.8 752.9,77.7 759.7,87.6 766.4,83.7 773.1,107.2 779.8,97.1 786.6,97.5 793.3,78.1 800.0,83.8"></polyline>
+<polyline fill="none" stroke="#D9541E" stroke-width="1.8" stroke-linejoin="round" points="0.0,185.8 6.7,184.3 13.4,189.4 20.2,190.1 26.9,177.0 33.6,176.4 40.3,167.6 47.1,162.4 53.8,164.0 60.5,172.7 67.2,182.9 73.9,183.1 80.7,181.7 87.4,181.3 94.1,175.3 100.8,177.1 107.6,179.6 114.3,188.1 121.0,201.0 127.7,198.2 134.5,194.6 141.2,187.3 147.9,190.2 154.6,195.5 161.3,199.4 168.1,209.5 174.8,214.0 181.5,202.8 188.2,203.6 195.0,193.1 201.7,185.5 208.4,185.6 215.1,180.5 221.8,180.1 228.6,166.6 235.3,154.4 242.0,157.0 248.7,159.5 255.5,156.8 262.2,157.5 268.9,157.8 275.6,140.8 282.4,168.5 289.1,168.5 295.8,169.0 302.5,165.6 309.2,167.8 316.0,152.6 322.7,159.1 329.4,152.2 336.1,160.2 342.9,165.3 349.6,173.6 356.3,164.8 363.0,174.3 369.7,172.8 376.5,163.4 383.2,163.4 389.9,170.6 396.6,159.8 403.4,160.5 410.1,165.3 416.8,167.2 423.5,169.3 430.3,165.8 437.0,173.1 443.7,172.1 450.4,176.3 457.1,179.2 463.9,184.4 470.6,185.4 477.3,184.3 484.0,192.9 490.8,193.7 497.5,191.3 504.2,187.8 510.9,187.9 517.6,189.5 524.4,185.2 531.1,181.8 537.8,185.8 544.5,179.5 551.3,178.1 558.0,181.4 564.7,176.0 571.4,172.8 578.2,168.3 584.9,165.0 591.6,159.8 598.3,157.1 605.0,160.5 611.8,166.1 618.5,161.3 625.2,142.1 631.9,123.1 638.7,141.5 645.4,135.1 652.1,134.3 658.8,138.5 665.5,139.1 672.3,137.5 679.0,142.1 685.7,140.1 692.4,128.4 699.2,110.4 705.9,99.0 712.6,81.1 719.3,75.4 726.1,80.7 732.8,100.3 739.5,105.7 746.2,104.6 752.9,119.7 759.7,122.0 766.4,136.6 773.1,128.3 779.8,113.0 786.6,111.2 793.3,122.6 800.0,114.6"></polyline>
+</g>
+<g font-family="Geist Mono, monospace" font-size="10" fill="#8A8A90"><text x="40" y="236">2020</text><text x="173" y="236">2021</text><text x="307" y="236">2022</text><text x="440" y="236">2023</text><text x="573" y="236">2024</text><text x="707" y="236">2025</text></g>
+</svg>
+</section>
+
+<aside style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E2E2DE; border-radius: 10px; overflow: hidden">
+<h2 style="margin: 0; padding: 14px 16px 10px; font-size: 14px; font-weight: 600">How much to trust this</h2>
+<div style="display: flex; gap: 10px; padding: 10px 16px; border-top: 1px solid #EDEDEA; font-size: 13px; line-height: 1.5"><span style="font-family: 'Geist Mono', monospace; color: #18794E">OK</span><span>93 trades: enough to judge the rules.</span></div>
+<div style="display: flex; gap: 10px; padding: 10px 16px; border-top: 1px solid #EDEDEA; font-size: 13px; line-height: 1.5"><span style="font-family: 'Geist Mono', monospace; color: #18794E">OK</span><span>Data complete for 49 of 50 stocks.</span></div>
+<div style="display: flex; gap: 10px; padding: 10px 16px; border-top: 1px solid #EDEDEA; font-size: 13px; line-height: 1.5; background: #FFF8EE"><span style="font-family: 'Geist Mono', monospace; color: #A35200">!!</span><span>Uses today's Nifty 50 list, which flatters results.</span></div>
+<div style="display: flex; gap: 10px; padding: 10px 16px; border-top: 1px solid #EDEDEA; font-size: 13px; line-height: 1.5; background: #FFF8EE"><span style="font-family: 'Geist Mono', monospace; color: #A35200">!!</span><span>TCS has a 3-day gap in March 2022.</span></div>
+</aside>
+</div>
+
+<section style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E2E2DE; border-radius: 10px; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 4px; padding: 8px 10px; border-bottom: 1px solid #E2E2DE">
+<button type="button" style="min-height: 30px; padding: 0 10px; border: none; border-radius: 6px; background: #EDEDEA; font: inherit; font-size: 13px; font-weight: 500; color: #18181A">Trades 93</button>
+<button type="button" style="min-height: 30px; padding: 0 10px; border: none; border-radius: 6px; background: transparent; font: inherit; font-size: 13px; color: #5C5C63">By stock</button>
+<button type="button" style="min-height: 30px; padding: 0 10px; border: none; border-radius: 6px; background: transparent; font: inherit; font-size: 13px; color: #5C5C63">Monthly</button>
+<button type="button" style="min-height: 30px; padding: 0 10px; border: none; border-radius: 6px; background: transparent; font: inherit; font-size: 13px; color: #5C5C63">All numbers</button>
+</div>
+<div style="overflow-x: auto">
+<table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
+<thead><tr style="text-align: left; color: #5C5C63; font-size: 12px"><th style="padding: 8px 16px; font-weight: 500">Stock</th><th style="padding: 8px 10px; font-weight: 500">Bought</th><th style="padding: 8px 10px; font-weight: 500">Sold</th><th style="padding: 8px 10px; font-weight: 500; text-align: right">Qty</th><th style="padding: 8px 10px; font-weight: 500; text-align: right">Net P&amp;L</th><th style="padding: 8px 16px; font-weight: 500">Exit</th></tr></thead>
+<tbody style="font-family: 'Geist Mono', monospace; font-size: 12px">
+<tr><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; font-weight: 500">HDFCBANK</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-03-12 1,612.40</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-04-04 1,748.10</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right">62</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right; color: #18794E">▲ +8,171</td><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; color: #5C5C63">signal</td></tr>
+<tr><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; font-weight: 500">TITAN</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-02-03 3,402.00</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-02-18 3,129.85</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right">29</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right; color: #C0362C">▼ −8,031</td><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; color: #5C5C63">stop 8%</td></tr>
+<tr><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; font-weight: 500">INFY</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-01-09 1,861.20</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-01-30 1,932.75</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right">53</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right; color: #18794E">▲ +3,612</td><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; color: #5C5C63">signal</td></tr>
+<tr><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; font-weight: 500">RELIANCE</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2024-12-17 1,238.55</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA">2025-01-06 1,281.30</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right">80</td><td style="padding: 8px 10px; border-top: 1px solid #EDEDEA; text-align: right; color: #18794E">▲ +3,104</td><td style="padding: 8px 16px; border-top: 1px solid #EDEDEA; color: #5C5C63">signal</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<p style="margin: 0; font-size: 12px; color: #8A8A90">Sample data for illustration.</p>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

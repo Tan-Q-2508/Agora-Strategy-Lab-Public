@@ -1,0 +1,198 @@
+/*
+ * Agora design tokens: Direction A "Warm Studio" (approved 2026-10-21, D-25).
+ * Every color, radius, shadow and duration used by components comes from here; components
+ * never hard-code values (DESIGN_BRIEF §9). Light is the default; dark is set by
+ * <html data-theme="dark"> (the ThemeProvider resolves "system" to one of the two).
+ */
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --canvas: #faf9f6;
+  --sidebar: #f6f4ef;
+  --surface: #ffffff;
+  --surface-2: #f3f1ec;
+  --border: #e7e3da;
+  --hairline: #f1eee7;
+  --fg: #1f1d1a;
+  --fg-muted: #5f5a52;
+  --fg-subtle: #6b665d;
+  --accent: #e8692c;
+  --accent-strong: #c4501a;
+  --accent-strong-hover: #ad4515;
+  --accent-soft: #fdf0e8;
+  --accent-soft-fg: #9a3e14;
+  --on-accent: #ffffff;
+  --logo-tile: #1f1d1a;
+  --logo-roof: #faf9f6;
+  --profit: #1f7a4d;
+  --profit-soft: #e6f2eb;
+  --profit-soft-fg: #17603c;
+  --loss: #b42318;
+  --loss-soft: #fbeae8;
+  --loss-soft-fg: #8f1d14;
+  --warning: #b45309;
+  --warning-soft: #fef6e7;
+  --warning-soft-fg: #7a3e06;
+  --info: #2563eb;
+  --info-soft: #eef3fd;
+  --info-soft-fg: #1e40af;
+  --neutral-dot: #8a847a;
+  --chart-grid: #f1eee7;
+  --chart-benchmark: #8a847a;
+  --shadow-color: 31 29 26;
+  --focus-ring: #e8692c;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --canvas: #1a1917;
+  --sidebar: #161513;
+  --surface: #232220;
+  --surface-2: #2c2a27;
+  --border: #393631;
+  --hairline: #2e2c29;
+  --fg: #f1eee8;
+  --fg-muted: #a8a196;
+  --fg-subtle: #9c958a;
+  --accent: #f07a3e;
+  --accent-strong: #f07a3e;
+  --accent-strong-hover: #f48c56;
+  --accent-soft: rgb(240 122 62 / 14%);
+  --accent-soft-fg: #f8a77c;
+  --on-accent: #1a1917;
+  --logo-tile: #2a2825;
+  --logo-roof: #f4efe6;
+  --profit: #4cc38a;
+  --profit-soft: rgb(76 195 138 / 14%);
+  --profit-soft-fg: #7fd8ac;
+  --loss: #f0645a;
+  --loss-soft: rgb(240 100 90 / 14%);
+  --loss-soft-fg: #f7a39c;
+  --warning: #f2a93b;
+  --warning-soft: rgb(242 169 59 / 12%);
+  --warning-soft-fg: #f5c77e;
+  --info: #6b9cf5;
+  --info-soft: rgb(107 156 245 / 14%);
+  --info-soft-fg: #a9c4f8;
+  --neutral-dot: #8a847a;
+  --chart-grid: #2e2c29;
+  --chart-benchmark: #8a847a;
+  --shadow-color: 0 0 0;
+  --focus-ring: #f07a3e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-sidebar: var(--sidebar);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-strong-hover: var(--accent-strong-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-fg: var(--accent-soft-fg);
+  --color-on-accent: var(--on-accent);
+  --color-profit: var(--profit);
+  --color-profit-soft: var(--profit-soft);
+  --color-profit-soft-fg: var(--profit-soft-fg);
+  --color-loss: var(--loss);
+  --color-loss-soft: var(--loss-soft);
+  --color-loss-soft-fg: var(--loss-soft-fg);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-fg: var(--warning-soft-fg);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-info-soft-fg: var(--info-soft-fg);
+  --color-neutral-dot: var(--neutral-dot);
+
+  --font-sans: "Inter Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  /* Type scale (size / line-height) */
+  --text-display: 44px;
+  --text-display--line-height: 52px;
+  --text-title: 28px;
+  --text-title--line-height: 34px;
+  --text-heading: 18px;
+  --text-heading--line-height: 26px;
+  --text-body: 15px;
+  --text-body--line-height: 24px;
+  --text-small: 13px;
+  --text-small--line-height: 18px;
+  --text-tiny: 12px;
+  --text-tiny--line-height: 16px;
+
+  --radius-control: 8px;
+  --radius-card: 14px;
+  --radius-tile: 10px;
+
+  --shadow-e1: 0 1px 2px rgb(var(--shadow-color) / 5%);
+  --shadow-e2: 0 1px 2px rgb(var(--shadow-color) / 4%), 0 8px 24px rgb(var(--shadow-color) / 7%);
+  --shadow-e3: 0 12px 40px rgb(var(--shadow-color) / 14%);
+
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s var(--ease-standard) infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to { background-position: 400px 0; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 35%, transparent); }
+  50% { box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 0%, transparent); }
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  /* The app scrolls inside its main panel, never the window: something placed against the
+     window (a hidden label, a chart tooltip) must not make the whole app slide into blank space. */
+  html, body { overflow-y: hidden; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Tabular figures everywhere: numbers line up in every table and card. */
+  body { font-variant-numeric: tabular-nums; }
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  ::selection { background: var(--accent-soft); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* D-212: boxes that scroll inside keep a slim scrollbar that matches the theme */
+.scroll-box {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.scroll-box:focus-visible { outline-offset: -2px; }

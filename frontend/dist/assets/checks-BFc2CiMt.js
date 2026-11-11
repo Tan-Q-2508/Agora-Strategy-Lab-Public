@@ -1,0 +1,1 @@
+var e={clean:`profit`,holding:`profit`,lookahead:`loss`,failed:`loss`,history:`warning`,slipping:`warning`,waiting:`neutral`,no_data:`neutral`},t={clean:`Passed`,lookahead:`Look-ahead found`,history:`Depends on history`,no_data:`No prices`,waiting:`Waiting for candles`,holding:`Holding up`,slipping:`Slipping`,failed:`Stopped holding up`};export{t as n,e as t};

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Agora</title>
+    <script>
+      // Apply the saved theme before first paint so the page never flashes the wrong colors.
+      try {
+        var t = localStorage.getItem("agora.theme");
+        var dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/index-BEGND8-c.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/createLucideIcon-CbVKBVoG.js">
+    <link rel="modulepreload" crossorigin href="/assets/dist-CT1u1gnb.js">
+    <link rel="modulepreload" crossorigin href="/assets/proxy-DemhLKXR.js">
+    <link rel="modulepreload" crossorigin href="/assets/dist-DNLRlVIg.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-ChTGh_89.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
