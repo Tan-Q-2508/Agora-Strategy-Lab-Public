@@ -22,6 +22,28 @@ It is a full-stack portfolio project: Python backend, React frontend, one shared
   self-audit (`docs/AUDIT_2026-11.md`).
 - **Plain-English UX** with a premium, motion-rich interface (`docs/DESIGN_BRIEF.md`).
 
+## Screenshots
+
+All screenshots use built-in synthetic practice prices, not real market data.
+
+**Start from a template, or build your own rules with blocks**
+
+![Strategies](docs/screenshots/01-strategies.png)
+
+![Strategy builder](docs/screenshots/02-strategy-builder.png)
+
+**Backtest results, written in plain English and compared with simply holding the index**
+
+![Backtest results](docs/screenshots/03-backtest-results.png)
+
+**Honest about uncertainty: data warnings, how much could be luck, and an AI review of the trades**
+
+![Equity curve and trust checks](docs/screenshots/04-equity-and-trust.png)
+
+**Metis, the AI researcher that tests ideas on history it never saw (and never trades)**
+
+![Metis](docs/screenshots/06-metis.png)
+
 ## Stack
 
 Python 3.12 (uv) · FastAPI · SQLAlchemy 2 + Alembic (SQLite) · pandas · RestrictedPython sandbox ·
